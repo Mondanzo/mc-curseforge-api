@@ -1,7 +1,21 @@
 const https = require("https");
 const querystring = require("querystring");
 
+const Mod = require("./objects/Mod");
+const ModFile = require("./objects/Files");
+
 const base_url = "https://ddph1n5l22.execute-api.eu-central-1.amazonaws.com/dev/";
+
+
+/**
+ * @description Generic Convertion Function
+ * @private
+ * @param {Object} object - The object
+ * @returns {Object} Returns the object
+ */
+function basic_convertion_function(object){
+    return object;
+}
 
 /**
  * @description Helper function to get content
@@ -9,7 +23,7 @@ const base_url = "https://ddph1n5l22.execute-api.eu-central-1.amazonaws.com/dev/
  * @param {string} url - Url to get
  * @param {Object} options - Object to stringify to url options
  */
-function innerGet(url, options = {}){
+function innerGet(url, options = {}, convertionFunction = basic_convertion_function){
     return new Promise((resolve, reject) => {
         url += "?" + querystring.stringify(options)
         console.log("Requesting", url);
@@ -22,7 +36,7 @@ function innerGet(url, options = {}){
             
             resp.on("end", () => {
                 if(resp.statusCode == 200 && data){
-                    resolve(JSON.parse(data));
+                    resolve(convertionFunction(JSON.parse(data)));
                 } else {
                     reject(data);
                 }
@@ -53,14 +67,20 @@ function innerGet(url, options = {}){
 * @param {number} options.page_num - The page to use. (in combination with options.page_size)
 * @param {number} options.page_size - The amount of items to show per page. (in combination with options.page_num)
 * @param {function} callback - Optional callback to use instead of Promise.
-* @returns {Promise} A promise containing the json object returned by the Curse API on successful 200 response.
+* @returns {Promise(Mod[])} A promise containing the json object returned by the Curse API on successful 200 response.
 */
 module.exports.getMods = function (options = {}, callback) {
     if (options && typeof options == 'function') {
         callback = options;
         options = {};
     }
-    let promise = innerGet(base_url + "mods", options);
+    let promise = innerGet(base_url + "mods", options, function(obj){
+        let mods = [];
+        for(let m of obj.result){
+            mods.push(new Mod(m));
+        }
+        return mods;
+    });
     if (callback && typeof callback == 'function')
         promise.then(callback.bind(null, null), callback);
     return promise;
@@ -72,10 +92,12 @@ module.exports.getMods = function (options = {}, callback) {
  * @description Get information about a specific mod using the identifier.
  * @param {string|number} identifier - The mods slug or curse id to find the mod with.
  * @param {function} callback - Optional callback to use instead of Promise.
- * @returns {Promise} A promise containing the json object returned by the Curse API on successful 200 response.
+ * @returns {Promise(Mod)} A promise containing the json object returned by the Curse API on successful 200 response.
  */
 module.exports.getMod = function (identifier, callback) {
-    let promise = innerGet(base_url + "mod/" + identifier);
+    let promise = innerGet(base_url + "mod/" + identifier, {}, function(obj){
+        return new Mod(obj.result);
+    });
     if (callback && typeof callback == 'function')
         promise.then(callback.bind(null, null), callback);
     return promise;
@@ -91,17 +113,23 @@ module.exports.getMod = function (identifier, callback) {
  * @param {string} options.channel - The channel to use. ("Beta", "Release")
  * @param {boolean} options.newest_only - only get the newest one.
  * @param {function} callback - Optional callback to use instead of Promise.
- * @returns {Promise} A promise containing the json object returned by the Curse API on successful 200 response.
+ * @returns {Promise(ModFile[])} A promise containing the json object returned by the Curse API on successful 200 response.
  */
-module.exports.getModFiles = function(identifier, options, callback){
+module.exports.getModFiles = function(identifier, options = {}, callback){
     if (options && typeof options == 'function') {
-        callback = options;
+        callback = options; 
         options = {};
     }
 
     if(options.hasOwnProperty("newest_only"))
         options.newest_only = options.newest_only ? 1 : 0
-    let promise = innerGet(base_url + "mod/" + identifier + "/files", options);
+    let promise = innerGet(base_url + "mod/" + identifier + "/files", options, function(obj){
+        let files = [];
+        for (let f of obj.result) {
+            files.push(new ModFile(f));
+        }
+        return files;
+    });
     if (callback && typeof callback == 'function')
         promise.then(callback.bind(null, null), callback);
     return promise;
