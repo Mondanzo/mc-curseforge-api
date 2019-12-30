@@ -5,6 +5,9 @@
   "main": "index.js",
   "author": "Mondanzo",
   "license": "MIT",
+  "scripts": {
+    "docs": "jsdoc -c conf.json -d docs"
+  },
   "private": true,
   "devDependencies": {
     "foodoc": "^0.0.9",
