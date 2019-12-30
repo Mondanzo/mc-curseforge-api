@@ -5,9 +5,9 @@ const base_url = "https://ddph1n5l22.execute-api.eu-central-1.amazonaws.com/dev/
 
 /**
  * @description Helper function to get content
- * @inner
+ * @private
  * @param {string} url - Url to get
- * @param {Object}} options - Object to stringify to url options
+ * @param {Object} options - Object to stringify to url options
  */
 function innerGet(url, options = {}){
     return new Promise((resolve, reject) => {
