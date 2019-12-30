@@ -1,4 +1,0 @@
-- name: Create Docs
-  run: |
-    npm install
-    npm run docs
