@@ -1,0 +1,23 @@
+{
+    "plugins": [],
+    "recurseDepth": 10,
+    "source": {
+        "include": ["./index.js", "./readme.md"],
+        "includePattern": ".+\\.js(doc|x)?$",
+        "excludePattern": "(^|\\/|\\\\)_"
+    },
+    "sourceType": "module",
+    "tags": {
+        "allowUnknownTags": true,
+        "dictionaries": ["jsdoc","closure"]
+    },
+    "templates": {
+        "systemName": "Curseforge API Wrapper",
+        "systemSummary": "A node package for interacting with the Curseforge Minecraft Mods API.",
+        "copyright": "©Mondanzo 2019",
+        "includeDate": false
+    },
+    "opts": {
+        "template": "./node_modules/foodoc/template"
+    }
+}

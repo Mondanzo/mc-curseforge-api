@@ -1,0 +1,13 @@
+{
+  "name": "curseforgeAPI",
+  "version": "1.0.0",
+  "description": "API to interact with the minecraft mods curseforge api",
+  "main": "index.js",
+  "author": "Mondanzo",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "foodoc": "^0.0.9",
+    "jsdoc": "^3.6.3"
+  }
+}
