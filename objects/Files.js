@@ -11,7 +11,7 @@ module.exports = class {
      * @description Check if a file got properly downloaded
      * @param {string} path - Path to file to check hash of.
      * @param {function} callback - Optional Callback to use instead of Promise.
-     * @returns {Promise(boolean)} A Promise containing true if hash is same. False otherwise.
+     * @returns {Promise.<boolean>} A Promise containing true if hash is same. False otherwise.
      */ 
     check_file(path, callback){
         let promise = new Promise((resolve, reject) => {
@@ -45,7 +45,7 @@ module.exports = class {
      * @param {boolean} options.override - Should the file be overwritten if it already exists? Defaults to false.
      * @param {boolean} options.auto_check - Should the file be automatically checked after the download finished? Defaults to true.
      * @param {function} callback - Optional callback to use as alternative to Promise.
-     * @returns {Promise(path)} A Promise containing the selected path for convenience.  
+     * @returns {Promise.<path>} A Promise containing the selected path for convenience.  
      */
     download(path, options = {override: false, auto_check: true}, callback){
         if (options && typeof options == 'function') {
@@ -78,7 +78,7 @@ module.exports = class {
      * @method ModFile.getDependencies
      * @description Get all dependencies required by this mod.
      * @prop {function} callback - Optional callback to use as alternative to Promise
-     * @returns {Promise(Mod[])} Array od Mods who are marked as dependency.
+     * @returns {Promise.<Mod[], Error>} Array od Mods who are marked as dependency.
      */
     getDependencies(callback){
         let promise = new Promise((resolve, reject) => {
@@ -103,7 +103,7 @@ module.exports = class {
      * @method ModFile.getDependenciesFiles
      * @description Get all dependencies required by this mod.
      * @prop {function} callback - Optional callback to use as alternative to Promise
-     * @returns {ModFile[]} Array od ModFiles who are marked as dependency.
+     * @returns {Promise.<ModFile[], Error>} Array od ModFiles who are marked as dependency.
      */
     getDependenciesFiles(callback) {
         let promise = new Promise((resolve, reject) => {

@@ -56,7 +56,7 @@ function innerGet(url, options = {}, convertionFunction = basic_convertion_funct
 * @param {number} options.page_num - The page to use. (in combination with options.page_size)
 * @param {number} options.page_size - The amount of items to show per page. (in combination with options.page_num)
 * @param {function} callback - Optional callback to use instead of Promise.
-* @returns {Promise(Mod[])} A promise containing the json object returned by the Curse API on successful 200 response.
+* @returns {Promise.<Mod[], Error>} A promise containing the json object returned by the Curse API on successful 200 response.
 */
 module.exports.getMods = function (options = {}, callback) {
     if (options && typeof options == 'function') {
@@ -81,7 +81,7 @@ module.exports.getMods = function (options = {}, callback) {
  * @description Get information about a specific mod using the identifier.
  * @param {string|number} identifier - The mods slug or curse id to find the mod with.
  * @param {function} callback - Optional callback to use instead of Promise.
- * @returns {Promise(Mod)} A promise containing the json object returned by the Curse API on successful 200 response.
+ * @returns {Promise.<Mod, Error>} A promise containing the json object returned by the Curse API on successful 200 response.
  */
 module.exports.getMod = function (identifier, callback) {
     let promise = innerGet(base_url + "mod/" + identifier, {}, function(obj){
@@ -102,7 +102,7 @@ module.exports.getMod = function (identifier, callback) {
  * @param {string} options.channel - The channel to use. ("Beta", "Release")
  * @param {boolean} options.newest_only - only get the newest one.
  * @param {function} callback - Optional callback to use instead of Promise.
- * @returns {Promise(ModFile[])} A promise containing the json object returned by the Curse API on successful 200 response.
+ * @returns {Promise.<ModFile[], Error>} A promise containing the json object returned by the Curse API on successful 200 response.
  */
 module.exports.getModFiles = function(identifier, options = {}, callback){
     if (options && typeof options == 'function') {
