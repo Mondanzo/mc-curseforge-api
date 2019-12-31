@@ -14,7 +14,6 @@
     "jsdoc": "^3.6.3"
   },
   "dependencies": {
-    "cloudscraper": "^4.5.0",
     "request": "^2.88.0"
   }
 }
