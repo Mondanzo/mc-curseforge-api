@@ -77,8 +77,8 @@ module.exports = class {
     /**
      * @method ModFile.getDependencies
      * @description Get all dependencies required by this mod.
-     * @prop {function} callback - Optional callback to use as alternative to Promise
-     * @returns {Promise.<Mod[], Error>} Array od Mods who are marked as dependency.
+     * @param {function} callback - Optional callback to use as alternative to Promise
+     * @returns {Promise.<Mod[], Error>} Array of Mods who are marked as dependency.
      */
     getDependencies(callback){
         let promise = new Promise((resolve, reject) => {
@@ -102,8 +102,8 @@ module.exports = class {
     /**
      * @method ModFile.getDependenciesFiles
      * @description Get all dependencies required by this mod.
-     * @prop {function} callback - Optional callback to use as alternative to Promise
-     * @returns {Promise.<ModFile[], Error>} Array od ModFiles who are marked as dependency.
+     * @param {function} callback - Optional callback to use as alternative to Promise
+     * @returns {Promise.<ModFile[], Error>} Array of ModFiles who are marked as dependency.
      */
     getDependenciesFiles(callback) {
         let promise = new Promise((resolve, reject) => {
