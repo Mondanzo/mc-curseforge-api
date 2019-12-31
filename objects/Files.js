@@ -1,6 +1,8 @@
+const curseforge = require("../index");
+
 const fs = require("fs");
 const crypto = require("crypto");
-const https = require("https");
+const request = require("request");
 
 module.exports = class {
 
@@ -15,10 +17,16 @@ module.exports = class {
         let promise = new Promise((resolve, reject) => {
             let stream = fs.createReadStream(path);
             let hash = crypto.createHash("md5");
-            hash.setEncoding("hex");
     
-            hash.on("finish", function(){
-                resolve(hash.read() == this.file_md5);
+            hash.on("readable", () => {
+                let data = hash.read();
+                if(data){
+                    console.log("Hash File:", this.file_md5);
+                    console.log("Hash Download:", data.toString("hex"));
+                    resolve(data.toString("hex") == this.file_md5);
+                } else {
+                    reject("Hash not found.");
+                }
             })
             
             stream.pipe(hash);
@@ -45,26 +53,19 @@ module.exports = class {
             options = { override: false, auto_check: true };
         }
 
+        options.override = options.hasOwnProperty("override") ? options.override : false;
+        options.auto_check = options.hasOwnProperty("auto_check") ? options.auto_check : true;
+
         let promise = new Promise((resolve, reject) => {
-            if (override || !fs.existsSync(path)){
-                let stream = fs.createWriteStream(path);
-                let wwwStream = https.get(this.download_url);
-                wwwStream.on("finish", () => {
-                    wwwStream.end();
-                    stream.end();
-                    if(options.auto_check){
-                        this.check_file(path).then((result) => {
-                            if(result) resolve(path);
-                            else reject("File download is corrupted! Check failed!");
-                        })
-                    } else {
-                        resolve(path);
-                    }
-                });
-                wwwStream.pipe(stream);
-            } else {
-                reject("File exists and override is false");
+            if (fs.existsSync(path)){
+                if(options.override)
+                    fs.unlinkSync(path);
+                else
+                    reject("File exists and override is false");
             }
+
+            console.log("Downloading", `https://media.forgecdn.net/files/${(this.id + "").slice(0, 4)}/${(this.id + "").slice(4)}/${this.file_name}`);
+            request(`https://media.forgecdn.net/files/${(this.id + "").slice(0, 4)}/${(this.id + "").slice(4)}/${this.file_name}`).pipe(fs.createWriteStream(path));
         });
 
         if (callback && typeof callback == 'function')
@@ -74,8 +75,57 @@ module.exports = class {
     }
 
     /**
-     * @name ModFile
-     * @class
+     * @method ModFile.getDependencies
+     * @description Get all dependencies required by this mod.
+     * @prop {function} callback - Optional callback to use as alternative to Promise
+     * @returns {Promise(Mod[])} Array od Mods who are marked as dependency.
+     */
+    getDependencies(callback){
+        let promise = new Promise((resolve, reject) => {
+            let mods = [];
+            let amount = this.mod_dependencies.length;
+            for (let dep of this.mod_dependencies) {
+                curseforge.getMod(dep).then((res) => {
+                    mods.push(res);
+                    if (--amount == 0) {
+                        resolve(mods);
+                    }
+                }).catch(err => reject);
+            }
+        });
+        if (callback && typeof callback == 'function')
+            promise.then(callback.bind(null, null), callback);
+
+        return promise;
+    }
+
+    /**
+     * @method ModFile.getDependenciesFiles
+     * @description Get all dependencies required by this mod.
+     * @prop {function} callback - Optional callback to use as alternative to Promise
+     * @returns {ModFile[]} Array od ModFiles who are marked as dependency.
+     */
+    getDependenciesFiles(callback) {
+        let promise = new Promise((resolve, reject) => {
+            let mods = [];
+            let amount = this.mod_dependencies.length;
+            for (let dep of this.mod_dependencies) {
+                curseforge.getModFiles(dep).then((res) => {
+                    mods.push(res);
+                    if(--amount == 0){
+                        resolve(mods);
+                    }
+                }).catch(err => reject);
+            }
+        });
+        if (callback && typeof callback == 'function')
+            promise.then(callback.bind(null, null), callback);
+
+        return promise;
+    }
+
+    /**
+     * @class ModFile
      * @description A File Object representing a file of a specific mod
      * @param {Object} file_object - File object to create object from
      * @property {number} id - The Curse Id of the mod file.

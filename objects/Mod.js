@@ -13,7 +13,7 @@ module.exports = class {
 
     /**
      * @name Mod
-     * @class
+     * @class Mod
      * @description A Mod Object representing a file of a specific mod
      * @param {Object} mod_object - Mod object to create object from
      * @property {number} id - The Curse Id of the mod.

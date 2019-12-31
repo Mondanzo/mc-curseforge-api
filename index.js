@@ -1,4 +1,4 @@
-const https = require("https");
+const request = require("request");
 const querystring = require("querystring");
 
 const Mod = require("./objects/Mod");
@@ -27,25 +27,14 @@ function innerGet(url, options = {}, convertionFunction = basic_convertion_funct
     return new Promise((resolve, reject) => {
         url += "?" + querystring.stringify(options)
         console.log("Requesting", url);
-        let req = https.get(url, {});
-        req.on("response", (resp) => {
-            let data = "";
-            resp.on("data", (chunk) => {
-                data += chunk;
-            });
-            
-            resp.on("end", () => {
-                if(resp.statusCode == 200 && data){
-                    resolve(convertionFunction(JSON.parse(data)));
-                } else {
-                    reject(data);
-                }
-            });
-            
-            resp.on("error", (err) => {
-                reject(err);
-            })
-        })
+        request(url, function(err, resp, body){
+            if(err) reject(err);
+            if (resp && resp.statusCode == 200) {
+                resolve(convertionFunction(JSON.parse(body)));
+            } else {
+                reject(body);
+            }
+        });
     })
 }
 
