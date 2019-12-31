@@ -1,14 +1,19 @@
 {
-  "name": "curseforgeAPI",
-  "version": "1.0.0",
+  "name": "mc-curseforge-api",
+  "version": "1.0.1",
   "description": "API to interact with the minecraft mods curseforge api",
   "main": "index.js",
   "author": "Mondanzo",
+  "website": "https://mondanzo.github.io/mcCurseforgeAPI/index.html",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mondanzo/mcCurseforgeAPI.git"
+  },
   "license": "MIT",
   "scripts": {
     "docs": "jsdoc -c conf.json -d docs"
   },
-  "private": true,
+  "private": false,
   "devDependencies": {
     "foodoc": "^0.0.9",
     "jsdoc": "^3.6.3"
