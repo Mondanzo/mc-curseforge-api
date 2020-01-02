@@ -26,7 +26,6 @@ function basic_convertion_function(object){
 function innerGet(url, options = {}, convertionFunction = basic_convertion_function){
     return new Promise((resolve, reject) => {
         url += "?" + querystring.stringify(options)
-        console.log("Requesting", url);
         request(url, function(err, resp, body){
             if(err) reject(err);
             if (resp && resp.statusCode == 200) {

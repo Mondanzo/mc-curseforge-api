@@ -1,10 +1,16 @@
 {
   "name": "mc-curseforge-api",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "API to interact with the minecraft mods curseforge api",
   "main": "index.js",
   "author": "Mondanzo",
   "website": "https://mondanzo.github.io/mcCurseforgeAPI/index.html",
+  "keywords": [
+    "Minecraft",
+    "Curse",
+    "Mods",
+    "Modding"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/Mondanzo/mcCurseforgeAPI.git"

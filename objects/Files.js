@@ -21,8 +21,6 @@ module.exports = class {
             hash.on("readable", () => {
                 let data = hash.read();
                 if(data){
-                    console.log("Hash File:", this.file_md5);
-                    console.log("Hash Download:", data.toString("hex"));
                     resolve(data.toString("hex") == this.file_md5);
                 } else {
                     reject("Hash not found.");
@@ -63,8 +61,6 @@ module.exports = class {
                 else
                     reject("File exists and override is false");
             }
-
-            console.log("Downloading", `https://media.forgecdn.net/files/${(this.id + "").slice(0, 4)}/${(this.id + "").slice(4)}/${this.file_name}`);
             request(`https://media.forgecdn.net/files/${(this.id + "").slice(0, 4)}/${(this.id + "").slice(4)}/${this.file_name}`).pipe(fs.createWriteStream(path));
         });
 
