@@ -1,6 +1,6 @@
 {
   "name": "mc-curseforge-api",
-  "version": "1.0.2",
+  "version": "1.0.2d",
   "description": "API to interact with the minecraft mods curseforge api",
   "main": "index.js",
   "author": "Mondanzo",
@@ -17,14 +17,14 @@
   },
   "license": "MIT",
   "scripts": {
-    "docs": "jsdoc -c conf.json -d docs"
+    "docs": "jsdoc -c conf.json -d docs",
+    "test": "mocha"
   },
   "private": false,
   "devDependencies": {
     "foodoc": "^0.0.9",
-    "jsdoc": "^3.6.3"
+    "jsdoc": "^3.6.3",
+    "mocha": "^6.2.2"
   },
-  "dependencies": {
-    "request": "^2.88.0"
-  }
+  "dependencies": {}
 }
