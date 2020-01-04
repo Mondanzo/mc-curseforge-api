@@ -21,7 +21,7 @@ module.exports = class {
             hash.on("readable", () => {
                 let data = hash.read();
                 if(data){
-                    resolve(data.toString("hex") == this.file_md5);
+                    resolve(data.toString("hex") === this.file_md5);
                 } else {
                     reject("Hash not found.");
                 }
@@ -29,7 +29,7 @@ module.exports = class {
             
             stream.pipe(hash);
         });
-        if (callback && typeof callback == 'function')
+        if (callback && typeof callback === 'function')
             promise.then(callback.bind(null, null), callback);
 
         return promise;
@@ -61,7 +61,7 @@ module.exports = class {
                 else
                     reject("File exists and override is false");
             }
-            https.get(`https://media.forgecdn.net/files/${(this.id + "").slice(0, 4)}/${(this.id + "").slice(4)}/${this.file_name}`, (response => {
+            https.get(`https://media.forgecdn.net/files/${(this.id + "").slice(0, 4)}/${(this.id + "").slice(4)}/${this.file_name}`, ((response) => {
                 response.pipe(fs.createWriteStream(path));
                 response.on("end", () => {
                     resolve(path);
@@ -69,7 +69,7 @@ module.exports = class {
             }));
         });
 
-        if (callback && typeof callback == 'function')
+        if (callback && typeof callback === 'function')
             promise.then(callback.bind(null, null), callback);
 
         return promise;
@@ -88,13 +88,13 @@ module.exports = class {
             for (let dep of this.mod_dependencies) {
                 curseforge.getMod(dep).then((res) => {
                     mods.push(res);
-                    if (--amount == 0) {
+                    if (--amount === 0) {
                         resolve(mods);
                     }
-                }).catch(err => reject);
+                }).catch((err) => reject);
             }
         });
-        if (callback && typeof callback == 'function')
+        if (callback && typeof callback === 'function')
             promise.then(callback.bind(null, null), callback);
 
         return promise;
@@ -108,18 +108,18 @@ module.exports = class {
      */
     getDependenciesFiles(callback) {
         let promise = new Promise((resolve, reject) => {
-            let mods = [];
+            let files = [];
             let amount = this.mod_dependencies.length;
             for (let dep of this.mod_dependencies) {
                 curseforge.getModFiles(dep).then((res) => {
-                    mods.push(res);
+                    files.push(res);
                     if(--amount == 0){
-                        resolve(mods);
+                        resolve(files);
                     }
-                }).catch(err => reject);
+                }).catch((err) => reject);
             }
         });
-        if (callback && typeof callback == 'function')
+        if (callback && typeof callback === 'function')
             promise.then(callback.bind(null, null), callback);
 
         return promise;
@@ -158,4 +158,4 @@ module.exports = class {
         this.downloads = file_object.download_count;
         this.mod_dependencies = file_object.mod_dependencies;
     }
-}
+};

@@ -25,22 +25,22 @@ function basic_convertion_function(object){
  */
 function innerGet(url, options = {}, convertionFunction = basic_convertion_function){
     return new Promise((resolve, reject) => {
-        url += "?" + querystring.stringify(options)
+        url += "?" + querystring.stringify(options);
         https.get(url, function(response){
-            if (response && response.statusCode == 200) {
+            if (response && response.statusCode === 200) {
                 let data = "";
                 response.on("data", (chunk) => {
                     data += chunk;
-                })
+                });
 
                 response.on("end", () => {
                     resolve(convertionFunction(JSON.parse(data)));
-                })
+                });
             } else {
-                reject(body);
+                reject(response.statusCode);
             }
         });
-    })
+    });
 }
 
 /**
@@ -75,7 +75,7 @@ module.exports.getMods = function (options = {}, callback) {
         }
         return mods;
     });
-    if (callback && typeof callback == 'function')
+    if (callback && typeof callback === 'function')
         promise.then(callback.bind(null, null), callback);
     return promise;
 }
@@ -92,7 +92,7 @@ module.exports.getMod = function (identifier, callback) {
     let promise = innerGet(base_url + "mod/" + identifier, {}, function(obj){
         return new Mod(obj.result);
     });
-    if (callback && typeof callback == 'function')
+    if (callback && typeof callback === 'function')
         promise.then(callback.bind(null, null), callback);
     return promise;
 }
@@ -116,7 +116,7 @@ module.exports.getModFiles = function(identifier, options = {}, callback){
     }
 
     if(options.hasOwnProperty("newest_only"))
-        options.newest_only = options.newest_only ? 1 : 0
+        options.newest_only = options.newest_only ? 1 : 0;
     let promise = innerGet(base_url + "mod/" + identifier + "/files", options, function(obj){
         let files = [];
         for (let f of obj.result) {
@@ -124,7 +124,7 @@ module.exports.getModFiles = function(identifier, options = {}, callback){
         }
         return files;
     });
-    if (callback && typeof callback == 'function')
+    if (callback && typeof callback === 'function')
         promise.then(callback.bind(null, null), callback);
     return promise;
-}
+};

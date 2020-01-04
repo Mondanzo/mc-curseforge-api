@@ -8,7 +8,7 @@ module.exports = class {
      * @see CurseForgeAPI.getModFiles
      */
     getFiles(options, callback){
-        return curseforge.getModFiles(this.id, options, callback)
+        return curseforge.getModFiles(this.id, options, callback);
     }
 
     /**
