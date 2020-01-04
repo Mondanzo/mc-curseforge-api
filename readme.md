@@ -49,7 +49,7 @@ curseforge.getMods({ "page_num": 3, "page_size": 5 }).then((mods) => {
 });
 ```
 
-See [curseforge.getMods](https://mondanzo.github.io/mcCurseforgeAPI/module-CurseForgeAPI.html) for more options.
+See [curseforge.getMods](https://mondanzo.github.io/mc-curseforge-api/module-CurseForgeAPI.html#~getMods) for more options.
 
 **Download the mod file for a mod:**
 
@@ -69,6 +69,8 @@ curseforge.getModFiles("botania", { "mc_version": "1.12.2" }).then((files) => {
     console.log(files);
 })
 ```
+
+See [curseforge.getModFiles](https://mondanzo.github.io/mc-curseforge-api/module-CurseForgeAPI.html#~getModFiles) for more options.
 
 ## Documentation
 
