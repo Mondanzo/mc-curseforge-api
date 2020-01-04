@@ -63,6 +63,9 @@ module.exports = class {
             }
             https.get(`https://media.forgecdn.net/files/${(this.id + "").slice(0, 4)}/${(this.id + "").slice(4)}/${this.file_name}`, (response => {
                 response.pipe(fs.createWriteStream(path));
+                response.on("end", () => {
+                    resolve(path);
+                })
             }));
         });
 
