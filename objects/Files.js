@@ -2,7 +2,7 @@ const curseforge = require("../index");
 
 const fs = require("fs");
 const crypto = require("crypto");
-const request = require("request");
+const https = require("https");
 
 module.exports = class {
 
@@ -61,7 +61,12 @@ module.exports = class {
                 else
                     reject("File exists and override is false");
             }
-            request(`https://media.forgecdn.net/files/${(this.id + "").slice(0, 4)}/${(this.id + "").slice(4)}/${this.file_name}`).pipe(fs.createWriteStream(path));
+            https.get(`https://media.forgecdn.net/files/${(this.id + "").slice(0, 4)}/${(this.id + "").slice(4)}/${this.file_name}`, (response => {
+                response.pipe(fs.createWriteStream(path));
+                response.on("end", () => {
+                    resolve(path);
+                })
+            }));
         });
 
         if (callback && typeof callback == 'function')

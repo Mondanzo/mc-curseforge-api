@@ -1,4 +1,4 @@
-const request = require("request");
+const https = require("https");
 const querystring = require("querystring");
 
 const Mod = require("./objects/Mod");
@@ -26,10 +26,16 @@ function basic_convertion_function(object){
 function innerGet(url, options = {}, convertionFunction = basic_convertion_function){
     return new Promise((resolve, reject) => {
         url += "?" + querystring.stringify(options)
-        request(url, function(err, resp, body){
-            if(err) reject(err);
-            if (resp && resp.statusCode == 200) {
-                resolve(convertionFunction(JSON.parse(body)));
+        https.get(url, function(response){
+            if (response && response.statusCode == 200) {
+                let data = "";
+                response.on("data", (chunk) => {
+                    data += chunk;
+                })
+
+                response.on("end", () => {
+                    resolve(convertionFunction(JSON.parse(data)));
+                })
             } else {
                 reject(body);
             }
