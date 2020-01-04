@@ -1,6 +1,6 @@
 {
   "name": "mc-curseforge-api",
-  "version": "1.0.3",
+  "version": "1.0.3d",
   "description": "API to interact with the minecraft mods curseforge api",
   "main": "index.js",
   "author": "Mondanzo",
