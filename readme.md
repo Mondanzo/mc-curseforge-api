@@ -74,5 +74,5 @@ See [curseforge.getModFiles](https://mondanzo.github.io/mc-curseforge-api/module
 
 ## Documentation
 
-See the docs for more information [here](https://mondanzo.github.io/mcCurseforgeAPI/).\
+See the docs for more information [here](https://mondanzo.github.io/mc-curseforge-api/).\
 (Those got made with JSDoc and I have no clue how to make them look better.)
