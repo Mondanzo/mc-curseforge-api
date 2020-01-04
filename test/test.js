@@ -3,6 +3,8 @@ const assert = require("assert");
 
 describe("getMods", function(){
     it("should return list of mods with no filtering", async function(){
+        this.timeout(10000);
+        
         let mods = await curseforge.getMods();
         assert.ok(mods.length > 0);
         let mod = mods.pop();
@@ -22,6 +24,8 @@ describe("getMods", function(){
     });
     
     it("should have a complete mod object returned from getMod after finding mod using key gathered from getMods", async function(){
+        this.timeout(10000);
+
         let mod = await curseforge.getMod((await curseforge.getMods()).pop().key);
         assert.ok(mod.hasOwnProperty("id"));
         assert.ok(mod.hasOwnProperty("key"));
