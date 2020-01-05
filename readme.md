@@ -1,4 +1,4 @@
-# mc-curseforge-api [![Codacy Badge](https://api.codacy.com/project/badge/Grade/229792d8c6484b99b47313081248b2fd)](https://www.codacy.com/manual/Mondanzo/mcCurseforgeAPI?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Mondanzo/mcCurseforgeAPI&amp;utm_campaign=Badge_Grade) ![npm bundle size](https://img.shields.io/bundlephobia/min/mc-curseforge-api)
+# mc-curseforge-api [![Codacy Badge](https://api.codacy.com/project/badge/Grade/229792d8c6484b99b47313081248b2fd)](https://www.codacy.com/manual/Mondanzo/mcCurseforgeAPI?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Mondanzo/mcCurseforgeAPI&amp;utm_campaign=Badge_Grade) [![npm bundle size](https://img.shields.io/bundlephobia/min/mc-curseforge-api) ![npm (tag)](https://img.shields.io/npm/v/mc-curseforge-api/latest)](https://www.npmjs.com/package/mc-curseforge-api)
 
 Yeah a terrible package name but whatever.
 
