@@ -26,7 +26,7 @@ module.exports = class {
                 } else {
                     reject("Hash not found.");
                 }
-            })
+            });
             
             stream.pipe(hash);
         });
@@ -47,7 +47,7 @@ module.exports = class {
      * @returns {Promise.<path>} A Promise containing the selected absolute path for convenience.  
      */
     download(path, options = {override: false, auto_check: true}, callback){
-        if (options && typeof options == 'function') {
+        if (options && typeof options === 'function') {
             callback = options;
             options = { override: false, auto_check: true };
         }

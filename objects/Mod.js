@@ -44,4 +44,4 @@ module.exports = class {
         this.updated = mod_object.updated;
         this.visited = mod_object.visited;
     }
-}
+};
