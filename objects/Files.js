@@ -1,6 +1,7 @@
 const curseforge = require("../index");
 
 const fs = require("fs");
+const ph = require("path");
 const crypto = require("crypto");
 const https = require("https");
 
@@ -38,12 +39,12 @@ module.exports = class {
     /**
      * @method ModFile.download
      * @description Download the file to a specific file
-     * @param {string} path - path to file to store in.
+     * @param {string} path - absolute path to file to store in.
      * @param {object} options - Optional options to use.
      * @param {boolean} options.override - Should the file be overwritten if it already exists? Defaults to false.
      * @param {boolean} options.auto_check - Should the file be automatically checked after the download finished? Defaults to true.
      * @param {function} callback - Optional callback to use as alternative to Promise.
-     * @returns {Promise.<path>} A Promise containing the selected path for convenience.  
+     * @returns {Promise.<path>} A Promise containing the selected absolute path for convenience.  
      */
     download(path, options = {override: false, auto_check: true}, callback){
         if (options && typeof options == 'function') {
@@ -62,10 +63,11 @@ module.exports = class {
                     reject("File exists and override is false");
             }
             https.get(`https://media.forgecdn.net/files/${(this.id + "").slice(0, 4)}/${(this.id + "").slice(4)}/${this.file_name}`, ((response) => {
+                if(!ph.isAbsolute(path)) reject("Path is not absolute.");
                 response.pipe(fs.createWriteStream(path));
                 response.on("end", () => {
                     resolve(path);
-                })
+                });
             }));
         });
 
@@ -76,17 +78,16 @@ module.exports = class {
     }
 
     /**
-     * @method ModFile.getDependencies
-     * @description Get all dependencies required by this mod.
-     * @param {function} callback - Optional callback to use as alternative to Promise
-     * @returns {Promise.<Mod[], Error>} Array of Mods who are marked as dependency.
+     * @private
+     * @param {curseforge.getMod} method
+     * @param {function} callback
      */
-    getDependencies(callback){
+    __please_dont_hate_me(method, callback) {
         let promise = new Promise((resolve, reject) => {
             let mods = [];
             let amount = this.mod_dependencies.length;
             for (let dep of this.mod_dependencies) {
-                curseforge.getMod(dep).then((res) => {
+                method(dep).then((res) => {
                     mods.push(res);
                     if (--amount === 0) {
                         resolve(mods);
@@ -101,31 +102,27 @@ module.exports = class {
     }
 
     /**
+     * @method ModFile.getDependencies
+     * @description Get all dependencies required by this mod.
+     * @param {function} callback - Optional callback to use as alternative to Promise
+     * @returns {Promise.<Mod[], Error>} Array of Mods who are marked as dependency.
+     */
+    getDependencies(callback){
+        return this.__please_dont_hate_me(curseforge.getMod, callback);
+    }
+
+    /**
      * @method ModFile.getDependenciesFiles
      * @description Get all dependencies required by this mod.
      * @param {function} callback - Optional callback to use as alternative to Promise
      * @returns {Promise.<ModFile[], Error>} Array of ModFiles who are marked as dependency.
      */
     getDependenciesFiles(callback) {
-        let promise = new Promise((resolve, reject) => {
-            let files = [];
-            let amount = this.mod_dependencies.length;
-            for (let dep of this.mod_dependencies) {
-                curseforge.getModFiles(dep).then((res) => {
-                    files.push(res);
-                    if(--amount == 0){
-                        resolve(files);
-                    }
-                }).catch((err) => reject);
-            }
-        });
-        if (callback && typeof callback === 'function')
-            promise.then(callback.bind(null, null), callback);
-
-        return promise;
+        return this.__please_dont_hate_me(curseforge.getModFiles, callback);
     }
 
     /**
+     * @name ModFile
      * @class ModFile
      * @description A File Object representing a file of a specific mod
      * @param {Object} file_object - File object to create object from

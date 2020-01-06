@@ -41,4 +41,20 @@ describe("getMods", function(){
         assert.ok(mod.hasOwnProperty("updated"));
         assert.ok(mod.hasOwnProperty("visited"));
     });
+
+    it("should return a list of dependencies for Tinkers Construct only containing mantle", async function(){
+        this.timeout(10000);
+        let file = (await curseforge.getModFiles("tinkers-construct"))[0];
+        let deps = await file.getDependencies();
+        assert.ok(deps.length > 0);
+        assert.ok(deps.pop().key === "mantle");
+    });
+
+    it("should return a list of dependencies files for Tinkers Construct only containing mantle", async function () {
+        this.timeout(10000);
+        let file = (await curseforge.getModFiles("tinkers-construct"))[0];
+        let deps = await file.getDependenciesFiles();
+        assert.ok(deps.length > 0);
+        assert.ok(deps.pop().pop().mod_key === "mantle");
+    });
 })
