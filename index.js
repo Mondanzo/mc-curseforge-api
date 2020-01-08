@@ -15,7 +15,7 @@ const base_url = "https://ddph1n5l22.execute-api.eu-central-1.amazonaws.com/dev/
  */
 function basic_convertion_function(object){
     return object;
-};
+}
 
 /**
  * @description Helper function to get content
@@ -41,7 +41,7 @@ function innerGet(url, options = {}, convertionFunction = basic_convertion_funct
             }
         });
     });
-};
+}
 
 /**
  * @description the purpose of this package is to interact with the Curseforge API with simple functions instead of having to write all the requests yourself.
@@ -64,7 +64,7 @@ function innerGet(url, options = {}, convertionFunction = basic_convertion_funct
 * @returns {Promise.<Mod[], Error>} A promise containing the json object returned by the Curse API on successful 200 response.
 */
 module.exports.getMods = function (options = {}, callback) {
-    if (options && typeof options == 'function') {
+    if (options && typeof options === 'function') {
         callback = options;
         options = {};
     }
