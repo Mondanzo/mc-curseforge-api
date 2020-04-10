@@ -14,7 +14,7 @@ const base_url = "https://ddph1n5l22.execute-api.eu-central-1.amazonaws.com/dev/
  * @returns {Object} Returns the object
  */
 function basic_convertion_function(object){
-    return object;
+    return Object.assign({}, object);
 }
 
 /**
