@@ -3,8 +3,15 @@ root = true
 [*]
 end_of_line = CRLF
 insert_final_newline = false
+indent_style = tab
+indent_size = 2
 
 [*.js]
+charset = utf-8
+indent_size = 4
+indent_style = tab
+
+[*.md]
 charset = utf-8
 indent_size = 4
 indent_style = space
@@ -12,4 +19,4 @@ indent_style = space
 [package.json]
 charset = utf-8
 indent_size = 2
-indent_style = space
+indent_style = tab
