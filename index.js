@@ -25,7 +25,8 @@ function basic_conversion_function(object) {
 function innerGet(
 	url,
 	options = {},
-	conversionFunction = basic_conversion_function
+	conversionFunction = basic_conversion_function,
+	PARSE = true
 ) {
 	return new Promise((resolve, reject) => {
 		if (Object.keys(options).length)
@@ -38,7 +39,8 @@ function innerGet(
 				});
 
 				response.on("end", () => {
-					resolve(conversionFunction(JSON.parse(data)));
+					if (PARSE) resolve(conversionFunction(JSON.parse(data)));
+					else resolve(conversionFunction(data));
 				});
 			} else {
 				reject(response.statusCode);
@@ -156,7 +158,8 @@ module.exports.getModDescription = function (identifier, callback) {
 		undefined,
 		function (obj) {
 			return obj;
-		}
+		},
+		false
 	);
 	if (callback && typeof callback === "function")
 		promise.then(callback.bind(null, null), callback);

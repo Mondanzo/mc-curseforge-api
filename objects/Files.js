@@ -18,7 +18,7 @@ module.exports = class {
 		if (override && typeof override === "function") {
 			callback = override;
 			override = false;
-		} else if (override && typeof override == "object") {
+		} else if (override && typeof override === "object") {
 			override = override.override;
 		}
 
