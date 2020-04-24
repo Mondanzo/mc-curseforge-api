@@ -126,20 +126,17 @@ module.exports.getMod = function (identifier, callback) {
  * @returns {Promise.<ModFile[], Error>} A promise containing the json object returned by the Curse API on successful 200 response.
  */
 module.exports.getModFiles = function (identifier, callback) {
-	if (options && typeof options === "function") {
-		callback = options;
-		options = {};
-	}
-
-	let promise = innerGet(base_url + identifier + "/files", options, function (
-		obj
-	) {
-		let files = [];
-		for (let f of Object.values(obj)) {
-			files.push(new ModFile(f));
+	let promise = innerGet(
+		base_url + identifier + "/files",
+		undefined,
+		function (obj) {
+			let files = [];
+			for (let f of Object.values(obj)) {
+				files.push(new ModFile(f));
+			}
+			return files;
 		}
-		return files;
-	});
+	);
 	if (callback && typeof callback === "function")
 		promise.then(callback.bind(null, null), callback);
 	return promise;
