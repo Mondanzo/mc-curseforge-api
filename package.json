@@ -1,30 +1,30 @@
 {
-  "name": "mc-curseforge-api",
-  "version": "1.0.6",
-  "description": "API to interact with the minecraft mods curseforge api",
-  "main": "index.js",
-  "author": "Mondanzo",
-  "homepage": "https://mondanzo.github.io/mc-curseforge-api/index.html",
-  "keywords": [
-    "Minecraft",
-    "Curse",
-    "Mods",
-    "Modding"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Mondanzo/mc-curseforge-api.git"
-  },
-  "license": "MIT",
-  "scripts": {
-    "docs": "jsdoc -c conf.json -d docs",
-    "test": "mocha"
-  },
-  "private": false,
-  "devDependencies": {
-    "foodoc": "^0.0.9",
-    "jsdoc": "^3.6.3",
-    "mocha": "^6.2.2"
-  },
-  "dependencies": {}
+	"name": "mc-curseforge-api",
+	"version": "2.0.0",
+	"description": "API to interact with the minecraft mods curseforge api",
+	"main": "index.js",
+	"author": "Mondanzo",
+	"homepage": "https://mondanzo.github.io/mc-curseforge-api/index.html",
+	"keywords": [
+		"Minecraft",
+		"Curse",
+		"Mods",
+		"Modding"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Mondanzo/mc-curseforge-api.git"
+	},
+	"license": "MIT",
+	"scripts": {
+		"docs": "jsdoc -c conf.json -d docs",
+		"test": "mocha"
+	},
+	"private": false,
+	"devDependencies": {
+		"foodoc": "^0.0.9",
+		"jsdoc": "^3.6.3",
+		"mocha": "^6.2.2"
+	},
+	"dependencies": {}
 }
