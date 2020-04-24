@@ -25,10 +25,10 @@ cursforge.getMods().then((mods) => {
 });
 ```
 
-**Get a list of mods by owner:**
+**Search for mods by a string:**
 
 ```javascript
-cursforge.getMods({ owner: "Vazkii_" }).then((mods) => {
+cursforge.getMods({ searchFilter: "Vazkii_" }).then((mods) => {
     console.log(mods);
 });
 ```
@@ -36,7 +36,7 @@ cursforge.getMods({ owner: "Vazkii_" }).then((mods) => {
 **Get a list of mods for a specific minecraft version:**
 
 ```javascript
-curseforge.getMods({ mc_version: "1.12.2" }).then((mods) => {
+curseforge.getMods({ gameVersion: "1.12.2" }).then((mods) => {
     console.log(mods);
 });
 ```
@@ -44,7 +44,7 @@ curseforge.getMods({ mc_version: "1.12.2" }).then((mods) => {
 **Use paging for getting mods:**
 
 ```javascript
-curseforge.getMods({ page_num: 3, page_size: 5 }).then((mods) => {
+curseforge.getMods({ index: 3, pageSize: 5 }).then((mods) => {
     console.log(mods);
 });
 ```
@@ -54,18 +54,15 @@ See [curseforge.getMods](https://mondanzo.github.io/mc-curseforge-api/module-Cur
 **Download the mod file for a mod:**
 
 ```javascript
-mod.getFiles({ newest_only: 1 }).then((files) => {
-    files[0].download("./Mod.jar", {
-        override: false,
-        auto_check: true,
-    });
+mod.getFiles().then((files) => {
+    files[0].download("./Mod.jar");
 });
 ```
 
 **Get mod files for a specific minecraft version:**
 
 ```javascript
-curseforge.getModFiles("botania", { mc_version: "1.12.2" }).then((files) => {
+curseforge.getModFiles(225643).then((files) => {
     console.log(files);
 });
 ```

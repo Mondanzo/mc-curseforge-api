@@ -72,4 +72,11 @@ describe("getMods", function () {
 		let deps = await file.getDependenciesFiles();
 		assert.ok(deps.length > 0);
 	});
+
+	it("should return a html string", async function () {
+		this.timeout(10000);
+		let description = await curseforge.getModDescription("74072");
+		assert.ok(typeof description === "string");
+		assert.ok(description[0] === "<");
+	});
 });
