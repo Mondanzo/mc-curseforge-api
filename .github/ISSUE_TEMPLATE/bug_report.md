@@ -16,11 +16,11 @@ A short code snippet to reproduce the bug if possible.
 **Expected behavior**
 A clear and concise description of what you expected to happen.
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+**Error Logs**
+If applicable, add error logs to help explain your problem. Please use a code tag for that.
 
-**Desktop (please complete the following information):**
- - Version [e.g. v1.0.3]
+**(please complete the following information):**
+ - Version [e.g. v2.0.1]
 - Node Version [e.g. v10.0.3]
 
 **Additional context**
