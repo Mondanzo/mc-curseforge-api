@@ -72,10 +72,11 @@ module.exports.SORT_TYPES = {
  *
  * @description Get an overview of all possible mods.
  * @param {Object} options - A Object containing optional parameters.
- * @param {string} options.gameVersion - The Minecraft version string to use. ("1.12.2", "1.13") @see SORT_TYPES
+ * @param {string} options.gameVersion - The Minecraft version string to use. ("1.12.2", "1.13")
  * @param {string} options.searchFilter - Term to search for.
  * @param {number} options.index - The page to use.
  * @param {number} options.pageSize - The amount of items to show per page. (Limit 500)
+ * * @param {number} options.sort - The method to sort with @see SORT_TYPES
  * @param {function} callback - Optional callback to use instead of Promise.
  * @returns {Promise.<Mod[], Error>} A promise containing the json object returned by the Curse API on successful 200 response.
  */
@@ -104,7 +105,6 @@ module.exports.getMods = function (options = {}, callback) {
  * @function getMod
  *
  * @description Get information about a specific mod using the identifier.
- * @param {number} identifier - The mods curse id to find the mod with.
  * @param {function} callback - Optional callback to use instead of Promise.
  * @returns {Promise.<Mod, Error>} A promise containing the json object returned by the Curse API on successful 200 response.
  */
@@ -122,21 +122,15 @@ module.exports.getMod = function (identifier, callback) {
  *
  * @description Get information about the releases of a specific mod.
  * @param {number} identifier - The mods curse id to find the mod with.
- * @param {Object} options - Optional Options object to use for filtering.
- * @param {string} options.mc_version - The Minecraft version string to use. ("1.12.2", "1.13")
- * @param {string} options.channel - The channel to use. ("Beta", "Release")
- * @param {boolean} options.newest_only - only get the newest one.
  * @param {function} callback - Optional callback to use instead of Promise.
  * @returns {Promise.<ModFile[], Error>} A promise containing the json object returned by the Curse API on successful 200 response.
  */
-module.exports.getModFiles = function (identifier, options = {}, callback) {
+module.exports.getModFiles = function (identifier, callback) {
 	if (options && typeof options === "function") {
 		callback = options;
 		options = {};
 	}
 
-	if (options.hasOwnProperty("newest_only"))
-		options.newest_only = options.newest_only ? 1 : 0;
 	let promise = innerGet(base_url + identifier + "/files", options, function (
 		obj
 	) {
@@ -151,6 +145,14 @@ module.exports.getModFiles = function (identifier, options = {}, callback) {
 	return promise;
 };
 
+/**
+ * @function getModDescription
+ *
+ * @description Get the html string for the mod description.
+ * @param {number} identifier - The mods curse id to find the mod with.
+ * @param {function} callback - Optional callback to use instead of Promise.
+ * @returns {Promise.<string, Error>} A promise containing the html string returned by the Curse API on successful 200 response.
+ */
 module.exports.getModDescription = function (identifier, callback) {
 	let promise = innerGet(
 		base_url + identifier + "/description",
