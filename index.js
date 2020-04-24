@@ -14,7 +14,6 @@ const base_url = "https://addons-ecs.forgesvc.net/api/v2/addon/";
  */
 function basic_conversion_function(object) {
 	return object;
-}
 
 /**
  * @description Helper function to get content
