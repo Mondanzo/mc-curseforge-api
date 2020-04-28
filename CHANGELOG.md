@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 The dates will be documented in the European format (DD-MM-YYYY)
 
+## [2.1.0] - 28-04-2020
+
+### Changes
+
+**ModFile.download** now takes a new argument called `simulate` with which you can just try to download a file without creating a new file. If you're not using callbacks everything should work just fine. There's also `url` now which should always refer to `this.download_url` and `tries`. Tries is used to avoid redirects loop and cancels a download if more than 10 redirects are send.
+
 ## [2.0.1] - 24-04-2020
 
 ### Fixes

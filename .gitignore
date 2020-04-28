@@ -4,3 +4,4 @@ docs/
 yarn.lock
 package-lock.json
 *.log
+yarn-error.log
