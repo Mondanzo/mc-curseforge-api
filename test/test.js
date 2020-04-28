@@ -79,4 +79,11 @@ describe("getMods", function () {
 		assert.ok(typeof description === "string");
 		assert.ok(description[0] === "<");
 	});
+
+	it("Should simulate a download", async function () {
+		this.timeout(10000);
+		let file = (await curseforge.getModFiles("74072")).pop();
+		let p = await file.download("/file.jar", false, true);
+		assert.ok(p === "/file.jar");
+	});
 });
