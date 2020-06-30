@@ -107,6 +107,7 @@ module.exports.getMods = function (options = {}, callback) {
  * @function getMod
  *
  * @description Get information about a specific mod using the identifier.
+ * @param {number} identifier - The mods curse id to find the mod with.
  * @param {function} callback - Optional callback to use instead of Promise.
  * @returns {Promise.<Mod, Error>} A promise containing the json object returned by the Curse API on successful 200 response.
  */
