@@ -78,7 +78,7 @@ module.exports.SORT_TYPES = {
  * @param {string} options.searchFilter - Term to search for.
  * @param {number} options.index - The page to use.
  * @param {number} options.pageSize - The amount of items to show per page. (Limit 500)
- * * @param {number} options.sort - The method to sort with @see SORT_TYPES
+ * @param {number} options.sort - The method to sort with @see SORT_TYPES
  * @param {function} callback - Optional callback to use instead of Promise.
  * @returns {Promise.<Mod[], Error>} A promise containing the json object returned by the Curse API on successful 200 response.
  */
