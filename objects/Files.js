@@ -81,6 +81,9 @@ module.exports = class {
 		let promise = new Promise((resolve, reject) => {
 			let mods = [];
 			let amount = this.mod_dependencies.length;
+			if(amount <= 0){
+				resolve([]);	
+			}
 			for (let dep of this.mod_dependencies) {
 				method(dep.addonId)
 					.then((res) => {
@@ -102,7 +105,7 @@ module.exports = class {
 	 * @method ModFile.getDependencies
 	 * @description Get all dependencies required by this mod.
 	 * @param {function} callback - Optional callback to use as alternative to Promise
-	 * @returns {Promise.<Mod[], Error>} Array of Mods who are marked as dependency.
+	 * @returns {Promise.<Mod[], Error>} Array of Mods who are marked as dependency or an empty array if no dependencies exist.
 	 */
 	getDependencies(callback) {
 		return this.__please_dont_hate_me(curseforge.getMod, callback);
@@ -112,7 +115,7 @@ module.exports = class {
 	 * @method ModFile.getDependenciesFiles
 	 * @description Get all dependencies required by this mod.
 	 * @param {function} callback - Optional callback to use as alternative to Promise
-	 * @returns {Promise.<ModFile[], Error>} Array of ModFiles who are marked as dependency.
+	 * @returns {Promise.<ModFile[], Error>} Array of ModFiles who are marked as dependency or an empty array if no dependencies exist.
 	 */
 	getDependenciesFiles(callback) {
 		return this.__please_dont_hate_me(curseforge.getModFiles, callback);
