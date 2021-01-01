@@ -20,7 +20,7 @@ Just quickly require it and you're good to go!
 ```javascript
 const curseforge = require("mc-curseforge-api");
 
-cursforge.getMods().then((mods) => {
+curseforge.getMods().then((mods) => {
     console.log(mods);
 });
 ```
@@ -28,7 +28,7 @@ cursforge.getMods().then((mods) => {
 **Search for mods by a string:**
 
 ```javascript
-cursforge.getMods({ searchFilter: "Vazkii_" }).then((mods) => {
+curseforge.getMods({ searchFilter: "Vazkii_" }).then((mods) => {
     console.log(mods);
 });
 ```
