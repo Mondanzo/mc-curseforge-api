@@ -10,7 +10,11 @@ The dates will be documented in the European format (DD-MM-YYYY)
 
 ### Changes
 
-**ModFile.getDependencies** and **ModFile.getDependenciesFiles** now contain another parameter called `categories` which defaults to an array of `[3]`.
+**ModFile.getDependencies** and **ModFile.getDependenciesFiles** now contain another parameter called `categories` which defaults to an array of `[3]`. This parameter can be used to specify which type of dependencies to get.
+
+### Added
+
+**CurseForgeAPI.DEPENDENCY_TYPE** is an enum containing a list of categories to use for getting dependencies.
 
 ## [2.1.1] - 27-12-2020
 
