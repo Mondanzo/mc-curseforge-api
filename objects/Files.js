@@ -77,14 +77,14 @@ module.exports = class {
 	 * @param {curseforge.getMod} method
 	 * @param {function} callback
 	 */
-	__please_dont_hate_me(method, callback) {
+	__please_dont_hate_me(method, callback, dependencies) {
 		let promise = new Promise((resolve, reject) => {
 			let mods = [];
-			let amount = this.mod_dependencies.length;
+			let amount = dependencies.length;
 			if(amount <= 0){
 				resolve([]);	
 			}
-			for (let dep of this.mod_dependencies) {
+			for (let dep of dependencies) {
 				method(dep.addonId)
 					.then((res) => {
 						mods.push(res);
@@ -105,20 +105,34 @@ module.exports = class {
 	 * @method ModFile.getDependencies
 	 * @description Get all dependencies required by this mod.
 	 * @param {function} callback - Optional callback to use as alternative to Promise
+	 * @param {array} [categories=[1,3]] - Array of categories to get the Dependencies for. @see CurseForgeAPI.DEPENDENCY_TYPE
 	 * @returns {Promise.<Mod[], Error>} Array of Mods who are marked as dependency or an empty array if no dependencies exist.
 	 */
-	getDependencies(callback) {
-		return this.__please_dont_hate_me(curseforge.getMod, callback);
+	getDependencies(callback, categories=[1, 3]) {
+		if(typeof callback == "array")
+			categories = callback;
+
+		let dependenciesToLoad = this.mod_dependencies.filter(mod => {
+			return categories.includes(mod.type);
+		})
+		
+		return this.__please_dont_hate_me(curseforge.getMod, callback, dependenciesToLoad);
 	}
 
 	/**
 	 * @method ModFile.getDependenciesFiles
 	 * @description Get all dependencies required by this mod.
 	 * @param {function} callback - Optional callback to use as alternative to Promise
+	 * @param {array} [categories=[1,3]] - Array of categories to get the Dependencies for. @see CurseForgeAPI.DEPENDENCY_TYPE
 	 * @returns {Promise.<ModFile[], Error>} Array of ModFiles who are marked as dependency or an empty array if no dependencies exist.
 	 */
-	getDependenciesFiles(callback) {
-		return this.__please_dont_hate_me(curseforge.getModFiles, callback);
+	getDependenciesFiles(callback, categories=[1, 3]) {
+		if(typeof callback == "array")
+			categories = callback;
+		let dependenciesToLoad = this.mod_dependencies.filter(mod => {
+			return categories.includes(mod.type);
+		})
+		return this.__please_dont_hate_me(curseforge.getModFiles, callback, dependenciesToLoad);
 	}
 
 	/**

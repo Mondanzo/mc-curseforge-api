@@ -70,6 +70,20 @@ module.exports.SORT_TYPES = {
 };
 
 /**
+ * @description Helper Object for types of dependencies and incompatibilities.
+ * @readonly
+ * @enum {number}
+ */
+module.exports.DEPENDENCY_TYPE = {
+	EMBEDDED_LIBRARY: 1,
+	OPTIONAL: 2,
+	REQUIRED: 3,
+	TOOL: 4,
+	INCOMPATIBLE: 5,
+	INCLUDE: 6
+}
+
+/**
  * @function getMods
  *
  * @description Get an overview of all possible mods.
