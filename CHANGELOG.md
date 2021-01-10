@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 The dates will be documented in the European format (DD-MM-YYYY)
 
+## [2.2.0] - 10-01-2021
+
+### Changes
+
+**ModFile.getDependencies** and **ModFile.getDependenciesFiles** now contain another parameter called `categories` which defaults to an array of `[3]`.
+
+## [2.1.1] - 27-12-2020
+
+### Fixes
+
+**ModFile.getDependencies** now returns an empty array if no dependencies exist instead of running forever.
+
+**ModFile.getDependenciesFiles** now returns an empty array if no dependencies exist instead of running forever.
+
 ## [2.1.0] - 28-04-2020
 
 ### Changes
