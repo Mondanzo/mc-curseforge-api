@@ -123,7 +123,7 @@ module.exports = class {
 	 * @method ModFile.getDependenciesFiles
 	 * @description Get all dependencies required by this mod.
 	 * @param {function} callback - Optional callback to use as alternative to Promise
-	 * @param {array} [categories=[1,3]] - Array of categories to get the Dependencies for. @see CurseForgeAPI.DEPENDENCY_TYPE
+	 * @param {array} [categories=[3]] - Array of categories to get the Dependencies for. @see CurseForgeAPI.DEPENDENCY_TYPE
 	 * @returns {Promise.<ModFile[], Error>} Array of ModFiles who are marked as dependency or an empty array if no dependencies exist.
 	 */
 	getDependenciesFiles(callback, categories=[1, 3]) {
