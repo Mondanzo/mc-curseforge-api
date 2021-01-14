@@ -27,8 +27,8 @@ declare class ModFile {
   available: boolean;
 
   download(path: string, override: boolean, simulate: boolean, callback: Function, url: string, tries: number): Promise<string>;
-  getDependencies(callback?: Function): Promise<Mod[]>;
-  getDependenciesFiles(callback?: Function): Promise<ModFile[]>;
+  getDependencies(callback?: Function, categories?: number[]): Promise<Mod[]>;
+  getDependenciesFiles(callback?: Function, categories?: number[]): Promise<ModFile[]>;
 }
 
 declare class Mod {
@@ -78,6 +78,9 @@ declare class Mod {
   released: Date;
   available: boolean;
   experimental: boolean;
+	
+	getFiles(callback? Function): Promise<ModFile[]>;
+	getDescription(callback? Function): Promise<string>;
 }
 
 declare module 'mc-curseforge-api' {
@@ -89,6 +92,15 @@ declare module 'mc-curseforge-api' {
     AUTHOR: 4,
     TOTAL_DOWNLOADS: 5
   }
+	
+	export const DEPENDENCY_TYPE: {
+		EMBEDDED_LIBRARY: 1,
+		OPTIONAL: 2,
+		REQUIRED: 3,
+		TOOL: 4,
+		INCOMPATIBLE: 5,
+		INCLUDE: 6
+	}
 
   /**
    * @function getMods
@@ -107,15 +119,18 @@ declare module 'mc-curseforge-api' {
     gameVersion?: string;
     searchFilter?: string;
     index?: number;
-    pageSize?: number;}): Promise<Mod[]|Error>
+    pageSize?: number;},
+		callback?: Function): Promise<Mod[]|Error>
 
   /**
    * @function getMod
    *
    * @description Get information about a specific mod using the identifier.
+	 * @param {number} identifier - The mods curse id to find the mod with.
+   * @param {function} callback - Optional callback to use instead of Promise.
    * @returns {Promise.<Mod, Error>} A promise containing the json object returned by the Curse API on successful 200 response.
    */
-  export function getMod(identifier: number): Promise<Mod>;
+  export function getMod(identifier: number, callback?: Function): Promise<Mod>;
 
   /**
    * @function getModFiles
@@ -125,7 +140,7 @@ declare module 'mc-curseforge-api' {
    * @param {function} callback - Optional callback to use instead of Promise.
    * @returns {Promise.<ModFile[], Error>} A promise containing the json object returned by the Curse API on successful 200 response.
    */
-  export function getModFiles(identifier: number): Promise<ModFile[]>;
+  export function getModFiles(identifier: number, callback?: Function): Promise<ModFile[]>;
 
   /**
    * @function getModDescription
@@ -135,6 +150,6 @@ declare module 'mc-curseforge-api' {
    * @param {function} callback - Optional callback to use instead of Promise.
    * @returns {Promise.<string, Error>} A promise containing the html string returned by the Curse API on successful 200 response.
    */
-  export function getModDescription(identifier: number): Promise<string>;
+  export function getModDescription(identifier: number, callback?: Function): Promise<string>;
 
 }
