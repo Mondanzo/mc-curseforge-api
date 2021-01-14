@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 The dates will be documented in the European format (DD-MM-YYYY)
 
+## [2.2.1] - 14-01-2021
+
+### Changes
+
+Added type declarations for typescript. Thanks to [fractaal](https://github.com/fractaal) for writing them!
+
 ## [2.2.0] - 10-01-2021
 
 ### Changes
