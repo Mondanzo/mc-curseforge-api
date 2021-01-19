@@ -79,8 +79,8 @@ declare class Mod {
   available: boolean;
   experimental: boolean;
 	
-	getFiles(callback? Function): Promise<ModFile[]>;
-	getDescription(callback? Function): Promise<string>;
+	getFiles(callback?: Function): Promise<ModFile[]>;
+	getDescription(callback?: Function): Promise<string>;
 }
 
 declare module 'mc-curseforge-api' {
