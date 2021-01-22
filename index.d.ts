@@ -5,6 +5,7 @@ declare class ModFile {
 	 * @description A File Object representing a file of a specific mod
 	 * @param {Object} file_object - File object to create object from
 	 * @property {string[]} minecraft_versions - The minecraft versions this mod file is compatible with.
+   * @property {number} id - The id of the file object
 	 * @property {string} file_name - The name of the mod file it got stored with.
 	 * @property {string} file_size - The size of the mod file as string. (Yeah it's gross)
 	 * @property {string} release_type - the type of the mod file release.
@@ -16,6 +17,7 @@ declare class ModFile {
 	 * @property {boolean} available - true if the file is available.
 	 */
   minecraft_versions: string[];
+  id: number;
   file_name: string;
   file_size: string;
   release_type: string;
