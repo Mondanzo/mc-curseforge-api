@@ -154,11 +154,12 @@ module.exports = class {
 	constructor(file_object) {
 		this.id = file_object.id;
 		this.minecraft_versions = file_object.gameVersion;
-		this.file_name = file_object.file_name;
+		this.file_name = file_object.fileName;
 		this.file_size = file_object.fileLength;
 		this.timestamp = file_object.fileDate;
 		this.release_type = file_object.releaseType;
 		this.download_url = file_object.downloadUrl;
+		// TODO: The API does not seem to provide a download count.
 		this.downloads = file_object.download_count;
 		this.mod_dependencies = file_object.dependencies || [];
 		this.alternate = file_object.isAlternate;
