@@ -1,3 +1,7 @@
+# please read
+Due to Overwolf taking over Curseforge. Bunch of parts from the api either won't work, don't show all mods or even outdated info for a mod. For now I highly recommend to use a different library, or use modrinth over Curseforge, (we all love us an Open-Source mod page instead of closed source). I'm not sure if I will continue working on this project or if it will be archived forever.
+
+
 # mc-curseforge-api [![Codacy Badge](https://api.codacy.com/project/badge/Grade/229792d8c6484b99b47313081248b2fd)](https://www.codacy.com/manual/Mondanzo/mcCurseforgeAPI?utm_source=github.com&utm_medium=referral&utm_content=Mondanzo/mcCurseforgeAPI&utm_campaign=Badge_Grade) [![npm bundle size](https://img.shields.io/bundlephobia/min/mc-curseforge-api) ![npm (tag)](https://img.shields.io/npm/v/mc-curseforge-api/latest)](https://www.npmjs.com/package/mc-curseforge-api)
 
 Yeah a terrible package name but whatever.
