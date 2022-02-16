@@ -1,3 +1,5 @@
+# this package is deprecated. Please stop using this and instead use [Mondanzo/node-curseforge](https://github.com/Mondanzo/node-curseforge)
+
 # please read
 Due to Overwolf taking over Curseforge. Bunch of parts from the api either won't work, don't show all mods or even outdated info for a mod. For now I highly recommend to use a different library, or use modrinth over Curseforge, (we all love us an Open-Source mod page instead of closed source). I'm not sure if I will continue working on this project or if it will be archived forever.
 
