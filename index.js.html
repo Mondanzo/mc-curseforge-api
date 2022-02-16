@@ -1,0 +1,293 @@
+<!-- start:source.tmpl.hbs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+		<title>index.js</title>
+		<!--[if lt IE 9]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
+		<link type="text/css" rel="stylesheet" href="css/prism.min.css">
+		<link type="text/css" rel="stylesheet" href="css/template.min.css">
+		<script type="text/javascript">
+			window.TEMPLATE_OPTIONS = {"includeDate":false,"dateFormat":"Do MMM YYYY","systemName":"Curseforge API Wrapper","systemSummary":"A node package for interacting with the Curseforge Minecraft Mods API.","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Classes","summary":"All documented classes."},{"kind":"external","title":"Externals","summary":"All documented external members."},{"kind":"global","title":"Globals","summary":"All documented globals."},{"kind":"mixin","title":"Mixins","summary":"All documented mixins."},{"kind":"interface","title":"Interfaces","summary":"All documented interfaces."},{"kind":"module","title":"Modules","summary":"All documented modules."},{"kind":"namespace","title":"Namespaces","summary":"All documented namespaces."},{"kind":"tutorial","title":"Tutorials","summary":"All available tutorials."}],"footer":"","copyright":"©Mondanzo 2019","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false};
+			window.DOCLET_TOC_ENABLED = false;
+			window.DOCLET_AFILTER_ENABLED = false;
+		</script>
+</head>
+<body>
+	<!-- start:navbar.hbs -->
+	<header class="navbar navbar-default navbar-fixed-top navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.html">
+					Curseforge API Wrapper
+				</a>
+				<!-- displayed on small devices -->
+				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="navbar-collapse collapse" id="topNavigation">
+				<ul class="nav navbar-nav">
+								<li class="dropdown">
+									<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="Mod.html">Mod</a></li>
+											<li><a href="ModFile.html">ModFile</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="list_module.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="module-CurseForgeAPI.html">CurseForgeAPI</a></li>
+									</ul>
+								</li>
+				</ul>
+					<!-- start:lunr-search-navbar.hbs -->
+					<form class="navbar-form navbar-right" role="search">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search" id="lunr-search-input">
+							<div class="input-group-btn">
+								<button class="btn btn-default" id="lunr-search-submit">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+					<!-- start:lunr-search-navbar.hbs -->		</div>
+		</div>
+	</header>
+	<!-- end:navbar.hbs -->		<div class="page-header">
+			<div class="container">
+				<span class="kind">source</span>
+				<h1><span class="name">index.js</span></h1>
+			</div>
+		</div>
+	<div class="container content">
+		<div class="row">
+			<div class="col-md-12 main-content">
+		<section class="source-section">
+			<article></article>
+			<pre class="prettyprint source language-javascript line-numbers"><code class="language-javascript">const https = require("https");
+const querystring = require("querystring");
+
+const Mod = require("./objects/Mod");
+const ModFile = require("./objects/Files");
+
+const base_url = "https://addons-ecs.forgesvc.net/api/v2/addon/";
+
+/**
+ * @description Generic Conversion Function (The Epic GCF)
+ * @private
+ * @param {Object} object - The object
+ * @returns {Object} Returns the object
+ */
+function basic_conversion_function(object) {
+	return object;
+}
+
+/**
+ * @description Helper function to get content
+ * @private
+ * @param {string} url - Url to get
+ * @param {Object} options - Object to stringify to url options
+ */
+function innerGet(
+	url,
+	options = {},
+	conversionFunction = basic_conversion_function,
+	PARSE = true
+) {
+	return new Promise((resolve, reject) => {
+		if (Object.keys(options).length)
+			url += "&amp;" + querystring.stringify(options);
+		https.get(url, function (response) {
+			if (response &amp;&amp; response.statusCode === 200) {
+				let data = "";
+				response.on("data", (chunk) => {
+					data += chunk;
+				});
+
+				response.on("end", () => {
+					if (PARSE) resolve(conversionFunction(JSON.parse(data)));
+					else resolve(conversionFunction(data));
+				});
+			} else {
+				reject(response.statusCode);
+			}
+		});
+	});
+}
+
+/**
+ * @description the purpose of this package is to interact with the Curseforge API with simple functions instead of having to write all the requests yourself.
+ * @module CurseForgeAPI
+ * @see getMods
+ */
+
+/**
+ * @description Helper Object for variations of sort options
+ * @readonly
+ * @enum {number}
+ */
+module.exports.SORT_TYPES = {
+	FEATURED: 0, // Sort by Featured
+	POPULARITY: 1, // Sort by Popularity
+	LAST_UPDATE: 2, // Sort by Last Update
+	NAME: 3, // Sort by Name
+	AUTHOR: 4, // Sort by Author
+	TOTAL_DOWNLOADS: 5, // Sort by Total Downloads
+};
+
+/**
+ * @description Helper Object for types of dependencies and incompatibilities.
+ * @readonly
+ * @enum {number}
+ */
+module.exports.DEPENDENCY_TYPE = {
+	EMBEDDED_LIBRARY: 1,
+	OPTIONAL: 2,
+	REQUIRED: 3,
+	TOOL: 4,
+	INCOMPATIBLE: 5,
+	INCLUDE: 6
+}
+
+/**
+ * @function getMods
+ *
+ * @description Get an overview of all possible mods.
+ * @param {Object} options - A Object containing optional parameters.
+ * @param {string} options.gameVersion - The Minecraft version string to use. ("1.12.2", "1.13")
+ * @param {string} options.searchFilter - Term to search for.
+ * @param {number} options.index - The page to use.
+ * @param {number} options.pageSize - The amount of items to show per page. (Limit 500)
+ * @param {number} options.sort - The method to sort with @see SORT_TYPES
+ * @param {function} callback - Optional callback to use instead of Promise.
+ * @returns {Promise.&lt;Mod[], Error>} A promise containing the json object returned by the Curse API on successful 200 response.
+ */
+module.exports.getMods = function (options = {}, callback) {
+	if (options &amp;&amp; typeof options === "function") {
+		callback = options;
+		options = {};
+	}
+	let promise = innerGet(
+		base_url + "search?gameId=432&amp;sectionId=6",
+		options,
+		function (obj) {
+			let mods = [];
+			for (let m of Object.values(obj)) {
+				mods.push(new Mod(m));
+			}
+			return mods;
+		}
+	);
+	if (callback &amp;&amp; typeof callback === "function")
+		promise.then(callback.bind(null, null), callback);
+	return promise;
+};
+
+/**
+ * @function getMod
+ *
+ * @description Get information about a specific mod using the identifier.
+ * @param {number} identifier - The mods curse id to find the mod with.
+ * @param {function} callback - Optional callback to use instead of Promise.
+ * @returns {Promise.&lt;Mod, Error>} A promise containing the json object returned by the Curse API on successful 200 response.
+ */
+module.exports.getMod = function (identifier, callback) {
+	let promise = innerGet(base_url + identifier, {}, function (obj) {
+		return new Mod(obj);
+	});
+	if (callback &amp;&amp; typeof callback === "function")
+		promise.then(callback.bind(null, null), callback);
+	return promise;
+};
+
+/**
+ * @function getModFiles
+ *
+ * @description Get information about the releases of a specific mod.
+ * @param {number} identifier - The mods curse id to find the mod with.
+ * @param {function} callback - Optional callback to use instead of Promise.
+ * @returns {Promise.&lt;ModFile[], Error>} A promise containing the json object returned by the Curse API on successful 200 response.
+ */
+module.exports.getModFiles = function (identifier, callback) {
+	let promise = innerGet(
+		base_url + identifier + "/files",
+		undefined,
+		function (obj) {
+			let files = [];
+			for (let f of Object.values(obj)) {
+				files.push(new ModFile(f));
+			}
+			return files;
+		}
+	);
+	if (callback &amp;&amp; typeof callback === "function")
+		promise.then(callback.bind(null, null), callback);
+	return promise;
+};
+
+/**
+ * @function getModDescription
+ *
+ * @description Get the html string for the mod description.
+ * @param {number} identifier - The mods curse id to find the mod with.
+ * @param {function} callback - Optional callback to use instead of Promise.
+ * @returns {Promise.&lt;string, Error>} A promise containing the html string returned by the Curse API on successful 200 response.
+ */
+module.exports.getModDescription = function (identifier, callback) {
+	let promise = innerGet(
+		base_url + identifier + "/description",
+		undefined,
+		function (obj) {
+			return obj;
+		},
+		false
+	);
+	if (callback &amp;&amp; typeof callback === "function")
+		promise.then(callback.bind(null, null), callback);
+	return promise;
+};
+</code></pre>
+		</section>
+			</div>
+		</div>
+	</div>
+	<footer>
+				<div class="copyright">©Mondanzo 2019</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+	</footer>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/clipboard.min.js"></script>
+	<script src="js/prism.min.js"></script>
+	<script src="js/template.min.js"></script>
+		<!-- start:lunr-search-modal.hbs -->
+		<div class="modal fade" id="lunr-search-modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Search results</h4>
+					</div>
+					<div class="modal-body" id="lunr-search-body">
+					</div>
+					<div class="modal-footer" id="lunr-search-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div>
+		<!-- end:lunr-search-modal.hbs -->		<script src="js/lunr.min.js"></script>
+	
+</body>
+</html>
+<!-- end:source.tmpl.hbs -->

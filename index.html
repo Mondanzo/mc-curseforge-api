@@ -1,0 +1,162 @@
+<!-- start:readme.hbs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+		<title>Curseforge API Wrapper</title>
+		<!--[if lt IE 9]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
+		<link type="text/css" rel="stylesheet" href="css/prism.min.css">
+		<link type="text/css" rel="stylesheet" href="css/template.min.css">
+		<script type="text/javascript">
+			window.TEMPLATE_OPTIONS = {"includeDate":false,"dateFormat":"Do MMM YYYY","systemName":"Curseforge API Wrapper","systemSummary":"A node package for interacting with the Curseforge Minecraft Mods API.","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Classes","summary":"All documented classes."},{"kind":"external","title":"Externals","summary":"All documented external members."},{"kind":"global","title":"Globals","summary":"All documented globals."},{"kind":"mixin","title":"Mixins","summary":"All documented mixins."},{"kind":"interface","title":"Interfaces","summary":"All documented interfaces."},{"kind":"module","title":"Modules","summary":"All documented modules."},{"kind":"namespace","title":"Namespaces","summary":"All documented namespaces."},{"kind":"tutorial","title":"Tutorials","summary":"All available tutorials."}],"footer":"","copyright":"©Mondanzo 2019","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false};
+			window.DOCLET_TOC_ENABLED = true;
+			window.DOCLET_AFILTER_ENABLED = false;
+		</script>
+</head>
+<body>
+	<!-- start:navbar.hbs -->
+	<header class="navbar navbar-default navbar-fixed-top navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.html">
+					Curseforge API Wrapper
+				</a>
+				<!-- displayed on small devices -->
+				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="navbar-collapse collapse" id="topNavigation">
+				<ul class="nav navbar-nav">
+								<li class="dropdown">
+									<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="Mod.html">Mod</a></li>
+											<li><a href="ModFile.html">ModFile</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="list_module.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="module-CurseForgeAPI.html">CurseForgeAPI</a></li>
+									</ul>
+								</li>
+				</ul>
+					<!-- start:lunr-search-navbar.hbs -->
+					<form class="navbar-form navbar-right" role="search">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search" id="lunr-search-input">
+							<div class="input-group-btn">
+								<button class="btn btn-default" id="lunr-search-submit">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+					<!-- start:lunr-search-navbar.hbs -->		</div>
+		</div>
+	</header>
+	<!-- end:navbar.hbs -->		<div class="page-header">
+			<div class="container">
+				<span class="kind">readme</span>
+				<h1><span class="name">Curseforge API Wrapper</span></h1>
+				<div class="summary"><p>A node package for interacting with the Curseforge Minecraft Mods API.</p></div>			</div>
+		</div>
+	<div class="container content">
+		<div class="row">
+			<div class="col-md-9 main-content">
+		<section class="readme-section">
+			<article><h1>this package is deprecated. Please stop using this and instead use <a href="https://github.com/Mondanzo/node-curseforge">Mondanzo/node-curseforge</a></h1>
+<h1>please read</h1>
+<p>Due to Overwolf taking over Curseforge. Bunch of parts from the api either won't work, don't show all mods or even outdated info for a mod. For now I highly recommend to use a different library, or use modrinth over Curseforge, (we all love us an Open-Source mod page instead of closed source). I'm not sure if I will continue working on this project or if it will be archived forever.</p>
+<h1>mc-curseforge-api <a href="https://www.codacy.com/manual/Mondanzo/mcCurseforgeAPI?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Mondanzo/mcCurseforgeAPI&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/229792d8c6484b99b47313081248b2fd" alt="Codacy Badge"></a> <a href="https://www.npmjs.com/package/mc-curseforge-api"><img src="https://img.shields.io/bundlephobia/min/mc-curseforge-api" alt="npm bundle size"> <img src="https://img.shields.io/npm/v/mc-curseforge-api/latest" alt="npm (tag)"></a></h1>
+<p>Yeah a terrible package name but whatever.</p>
+<p>This package should make dealing with the Minecraft Mods Curseforge API a lot easier.
+Just quickly require it and you're good to go!</p>
+<h2>Installation</h2>
+<p><strong>Using yarn (which is obviously better)</strong><br>
+<code>yarn add mc-curseforge-api</code></p>
+<p><strong>Using npm</strong><br>
+<code>npm install mc-curseforge-api --save</code></p>
+<h2>Examples</h2>
+<p><strong>Get a list of mods:</strong></p>
+<pre class="prettyprint source lang-javascript"><code>const curseforge = require(&quot;mc-curseforge-api&quot;);
+
+curseforge.getMods().then((mods) => {
+    console.log(mods);
+});
+</code></pre>
+<p><strong>Search for mods by a string:</strong></p>
+<pre class="prettyprint source lang-javascript"><code>curseforge.getMods({ searchFilter: &quot;Vazkii_&quot; }).then((mods) => {
+    console.log(mods);
+});
+</code></pre>
+<p><strong>Get a list of mods for a specific minecraft version:</strong></p>
+<pre class="prettyprint source lang-javascript"><code>curseforge.getMods({ gameVersion: &quot;1.12.2&quot; }).then((mods) => {
+    console.log(mods);
+});
+</code></pre>
+<p><strong>Use paging for getting mods:</strong></p>
+<pre class="prettyprint source lang-javascript"><code>curseforge.getMods({ index: 3, pageSize: 5 }).then((mods) => {
+    console.log(mods);
+});
+</code></pre>
+<p>See <a href="https://mondanzo.github.io/mc-curseforge-api/module-CurseForgeAPI.html#~getMods">curseforge.getMods</a> for more options.</p>
+<p><strong>Download the mod file for a mod:</strong></p>
+<pre class="prettyprint source lang-javascript"><code>mod.getFiles().then((files) => {
+    files[0].download(&quot;./Mod.jar&quot;);
+});
+</code></pre>
+<p><strong>Get mod files for a specific minecraft version:</strong></p>
+<pre class="prettyprint source lang-javascript"><code>curseforge.getModFiles(225643).then((files) => {
+    console.log(files);
+});
+</code></pre>
+<p>See <a href="https://mondanzo.github.io/mc-curseforge-api/module-CurseForgeAPI.html#~getModFiles">curseforge.getModFiles</a> for more options.</p>
+<h2>Documentation</h2>
+<p>See the docs for more information <a href="https://mondanzo.github.io/mc-curseforge-api/">here</a>.<br>
+(Those got made with JSDoc and I have no clue how to make them look better.)</p></article>
+		</section>
+			</div>
+				<div class="col-md-3 side-content">
+					<nav class="toc hidden-print hidden-sm hidden-xs"></nav>
+				</div>
+		</div>
+	</div>
+	<footer>
+				<div class="copyright">©Mondanzo 2019</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+	</footer>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/clipboard.min.js"></script>
+	<script src="js/prism.min.js"></script>
+	<script src="js/template.min.js"></script>
+		<!-- start:lunr-search-modal.hbs -->
+		<div class="modal fade" id="lunr-search-modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Search results</h4>
+					</div>
+					<div class="modal-body" id="lunr-search-body">
+					</div>
+					<div class="modal-footer" id="lunr-search-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div>
+		<!-- end:lunr-search-modal.hbs -->		<script src="js/lunr.min.js"></script>
+	
+</body>
+</html>
+<!-- end:readme.hbs -->
