@@ -87,3 +87,19 @@ describe("getMods", function () {
 		assert.ok(p === "/file.jar");
 	});
 });
+
+describe("getModFiles", function () {
+	it("Should parse the file metadata correctly", async function () {
+		this.timeout(10000);
+		const file = (await curseforge.getModFiles("74072")).pop();
+		// TODO: downloads is undefined.
+		const props = [
+			"id", "minecraft_versions", "file_name", "file_size", "timestamp", "release_type",
+			"download_url", "mod_dependencies", "alternate", "alternate_id", "available"
+		];
+		for (const prop of props) {
+			assert.ok(file.hasOwnProperty(prop), `The property ${prop} is missing`);
+			assert.ok(file[prop] != null, `The property ${prop} is ${JSON.stringify(file[prop])}`);
+		}
+	});
+});
